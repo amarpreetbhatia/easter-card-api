@@ -10,6 +10,13 @@
 
 export default {
 	async fetch(request, env, ctx) {
-		return new Response('Hello World!');
+		const response = await env.AI.run('@cf/stabilityai/stable-diffusion-xl-base-1.0', {
+			prompt: `Generate an digital wishing card for Happy Easter, where a cute bunny is holding a basket of colorful eggs,with a beautiful spring background and flowers.and the text "Happy Easter" in a playful font.`,
+		});
+		return new Response(response, {
+			headers: {
+				'content-type': 'image/jpg',
+			},
+		});
 	},
 };
